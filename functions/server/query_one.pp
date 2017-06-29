@@ -8,7 +8,7 @@ function ig::server::query_one (
     String[1] $attribute_id,
 ) >> String[1] {
     $result = query($query, $attribute_id)
-    $length = size($result)
+    $length = length($result)
 
     if $length != 1 {
         fail("Query \"${query}\" returned ${length} servers.")
