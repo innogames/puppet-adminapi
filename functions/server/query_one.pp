@@ -5,9 +5,9 @@
 #
 function ig::server::query_one (
     String[1] $query,
-    String[1] $attribute_id,
+    String[1] $attribute_id = 'fqdn',
 ) >> String[1] {
-    $result = query($query, $attribute_id)
+    $result = ig::server::query($query, $attribute_id)
     $length = length($result)
 
     if $length != 1 {
