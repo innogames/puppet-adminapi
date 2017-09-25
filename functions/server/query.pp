@@ -5,15 +5,11 @@
 #
 function ig::server::query (
     String[1] $query,
-    String[1] $attribute_id = 'fqdn',
+    String[1] $attribute_id = 'hostname',
 ) >> Array[String[1]] {
-    $attribute_id ? {
-        'fqdn'  => query($query, 'hostname').map |$hostname| {
-            $hostname ? {
-                /\.(ig\.local|innogames\.net)\Z/ => $hostname,
-                default                          => "${hostname}.ig.local",
-            }
-        },
-        default => query($query, $attribute_id),
-    }
+    igserver(ig::format::cli_arguments({
+        'attr'  => $attribute_id,
+        'order' => $attribute_id,
+        undef   => $query,
+    }))
 }
