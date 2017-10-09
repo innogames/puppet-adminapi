@@ -15,10 +15,7 @@ function ig::server::multiadd (
     assert_type(Array, $old_values)
 
     if ! ($value in $old_values) {
-        igserver(ig::format::cli_arguments({
-            'update' => "${attribute_id}=\"${value}\"",
-            undef    => $ig::server::hostname,
-        }))
+        serveradmin_set($ig::server::hostname, $attribute_id, $value)
     }
 
     undef

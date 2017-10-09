@@ -1,11 +1,3 @@
-#
-# Query an attribute from Serveradmin
-#
-# XXX This is deprecated.  Use ig::server::multiadd instead.
-#
-# Copyright (c) 2017, InnoGames GmbH
-#
-
 module Puppet::Parser::Functions
   newfunction(:serveradmin_set, :type => :rvalue) do |args|
     raise(Puppet::ParseError, "serveradmin_set(): Wrong number of arguments") if args.size != 3

@@ -1,11 +1,3 @@
-#
-# Query an attribute from Serveradmin
-#
-# XXX This is deprecated.  Use ig::server::query instead.
-#
-# Copyright (c) 2017, InnoGames GmbH
-#
-
 module Puppet::Parser::Functions
   newfunction(:query, :type => :rvalue) do |args|
     raise(Puppet::ParseError, "query(): Wrong number of arguments") if args.size != 2
