@@ -13,7 +13,9 @@ function ig::server::query (
         undef   => $query ? {
             String  => $query,
             default => $query.map |$key, $value| {
-                "${key}=${value}"
+                with(ig::format::igserver_query_filter($value)) |$value| {
+                    "${key}=${value}"
+                }
             },
         },
     }))

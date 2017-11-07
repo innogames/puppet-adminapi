@@ -3,4 +3,9 @@
 #
 # Copyright (c) 2017, InnoGames GmbH
 #
-type Ig::Igserver_query = Hash[Ig::Attribute_id, Variant[Boolan, Numeric, String[1]]]
+type Ig::Igserver_query = Hash[Ig::Attribute_id, Variant[
+    Boolean,
+    Numeric,
+    Pattern[/\A[^\(\)\'"]+\Z/],
+    Ig::Igserver_query_filter,
+]]
