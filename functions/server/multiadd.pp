@@ -4,8 +4,8 @@
 # Copyright (c) 2017, InnoGames GmbH
 #
 function ig::server::multiadd (
-    String[1] $attribute_id,
-    String[1] $value,
+    Ig::Server::Attribute_id                     $attribute_id,
+    Variant[Numeric, Pattern[/\A[^\(\)\'"]+\Z/]] $value,
 ) >> Undef {
     if ! defined(Class['ig::server']) {
         fail('This function can only be used with ig::server.')
