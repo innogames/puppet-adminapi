@@ -12,9 +12,9 @@ Puppet::Functions.create_function(:'ig::server::query') do
 
     # Returns single attribute of multiple servers
     dispatch :query_single_attr do
-        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
-        optional_param 'Ig::Attribute_id', :attribute
-        return_type 'Array[Ig::Attribute_value]'
+        param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :query
+        optional_param 'Ig::Server::Attribute_id', :attribute
+        return_type 'Array[Ig::Server::Attribute_value]'
     end
 
     def query_single_attr(query, attribute='hostname')
@@ -29,9 +29,9 @@ Puppet::Functions.create_function(:'ig::server::query') do
 
     # Returns multiple attributes of a multiple servers
     dispatch :query_multi_attr do
-        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
-        param 'Array[Ig::Attribute_id, 1]', :attributes
-        return_type 'Array[Hash[Ig::Attribute_id, Ig::Attribute_value, 1]]'
+        param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :query
+        param 'Array[Ig::Server::Attribute_id, 1]', :attributes
+        return_type 'Array[Hash[Ig::Server::Attribute_id, Ig::Server::Attribute_value, 1]]'
     end
 
     def query_multi_attr(query, attributes)
