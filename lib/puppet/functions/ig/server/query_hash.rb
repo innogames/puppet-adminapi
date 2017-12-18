@@ -13,7 +13,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     # Returns single attribute of multiple servers
     # Unlike normal queries it returns a hash by hostname, not a sorted array.
     dispatch :query_hash_single_attr do
-        param 'Ig::Igserver_query', :query
+        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
         param 'Ig::Attribute_id', :attribute
         return_type 'Hash[Ig::Domain_Name, Ig::Attribute_value]'
     end
@@ -28,7 +28,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     # Returns multiple attributes of a multiple servers
     # Unlike normal queries it returns a hash by hostname, not a sorted array.
     dispatch :query_hash_multi_attr do
-        param 'Ig::Igserver_query', :query
+        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
         param 'Array[Ig::Attribute_id, 1]', :attributes
         return_type 'Hash[Ig::Domain_Name, Hash[Ig::Attribute_id, Ig::Attribute_value]]'
     end

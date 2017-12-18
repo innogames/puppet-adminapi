@@ -12,7 +12,7 @@ Puppet::Functions.create_function(:'ig::server::query') do
 
     # Returns single attribute of multiple servers
     dispatch :query_single_attr do
-        param 'Ig::Igserver_query', :query
+        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
         optional_param 'Ig::Attribute_id', :attribute
         return_type 'Array[Ig::Attribute_value]'
     end
@@ -29,7 +29,7 @@ Puppet::Functions.create_function(:'ig::server::query') do
 
     # Returns multiple attributes of a multiple servers
     dispatch :query_multi_attr do
-        param 'Ig::Igserver_query', :query
+        param 'Hash[Ig::Attribute_id, Ig::Query_filter]', :query
         param 'Array[Ig::Attribute_id, 1]', :attributes
         return_type 'Array[Hash[Ig::Attribute_id, Ig::Attribute_value, 1]]'
     end
