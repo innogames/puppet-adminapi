@@ -13,7 +13,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     dispatch :execute_for_single do
         param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
         optional_param 'Ig::Server::Attribute_restrict', :restrict
-        return_type 'Hash[Ig::Domain_Name, Ig::Server::Attribute_value]'
+        return_type 'Hash[Ig::Domain_name, Ig::Server::Attribute_value]'
     end
 
     def execute_for_single(filters, restrict='hostname')
@@ -25,7 +25,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     dispatch :execute_for_multi do
         param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
         param 'Array[Ig::Server::Attribute_restrict]', :restrict
-        return_type 'Hash[Ig::Domain_Name, Hash[Ig::Server::Attribute_id, Ig::Server::Attribute_value]]'
+        return_type 'Hash[Ig::Domain_name, Hash[Ig::Server::Attribute_id, Ig::Server::Attribute_value]]'
     end
 
     def execute_for_multi(filters, restrict)
