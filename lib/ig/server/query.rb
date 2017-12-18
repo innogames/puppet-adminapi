@@ -16,9 +16,10 @@ module Ig
     module Server
         class Query
 
-            def initialize(filters, attributes)
+            def initialize(filters, restrict, order_by)
                 @filters = filters
-                @attributes = attributes
+                @restrict = restrict
+                @order_by = order_by
                 @serveradmin_url = ENV['SERVERADMIN_BASE_URL'] || 'https://serveradmin.innogames.de/api'
                 load_authtoken()
             end
@@ -44,8 +45,8 @@ module Ig
                 
                 query_json = JSON.generate({
                     'filters' => @filters,
-                    'restrict' => @attributes,
-                    'order_by' => [@attributes[0]],
+                    'restrict' => @restrict,
+                    'order_by' => @order_by,
                 })
 
                 security_token = OpenSSL::HMAC.hexdigest(
@@ -80,7 +81,6 @@ module Ig
                     fail('Could not parse answer from Serveradmin!' + res_json.to_s)
                 end
             end
-
         end
     end
 end

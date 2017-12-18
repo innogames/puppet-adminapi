@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
     end
 
     def execute_for_single(filters, restrict)
-        results = Ig::Server::Query.new(filters, [restrict]).get_results()
+        results = Ig::Server::Query.new(filters, [restrict], []).get_results()
         if results.length == 0
             fail('Query returned no objects from Serveradmin!')
         elsif results.length > 1
@@ -34,7 +34,7 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
     end
 
     def execute_for_multi(filters, restrict)
-        results = Ig::Server::Query.new(filters, restrict).get_results()
+        results = Ig::Server::Query.new(filters, restrict, []).get_results()
         if results.length == 0
             fail('Query returned no objects from Serveradmin!')
         elsif results.length > 1

@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     end
 
     def execute_for_single(filters, restrict)
-        Ig::Server::Query.new(filters, ['hostname', restrict]).get_results().reduce({}) { |prev, cur|
+        Ig::Server::Query.new(filters, ['hostname', restrict], []).get_results().reduce({}) { |prev, cur|
             prev[cur['hostname']] = cur[restrict]
         }
     end
@@ -29,7 +29,7 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
     end
 
     def execute_for_multi(filters, restrict)
-        Ig::Server::Query.new(filters, ['hostname'] + restrict).get_results().reduce({}) { |prev, cur|
+        Ig::Server::Query.new(filters, ['hostname'] + restrict, []).get_results().reduce({}) { |prev, cur|
             prev.update(cur['hostname'] => cur.reject { |k|
                 k == 'hostname'
             })
