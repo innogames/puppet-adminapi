@@ -12,11 +12,11 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
 
     dispatch :execute_for_single do
         param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
-        param 'Ig::Server::Attribute_restrict', :restrict
+        optional_param 'Ig::Server::Attribute_restrict', :restrict
         return_type 'Ig::Server::Attribute_value'
     end
 
-    def execute_for_single(filters, restrict)
+    def execute_for_single(filters, restrict='hostname')
         results = Ig::Server::Query.new(filters, [restrict], []).get_results()
         if results.length == 0
             fail('Query returned no objects from Serveradmin!')

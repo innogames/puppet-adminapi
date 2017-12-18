@@ -12,11 +12,11 @@ Puppet::Functions.create_function(:'ig::server::query_hash') do
 
     dispatch :execute_for_single do
         param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
-        param 'Ig::Server::Attribute_restrict', :restrict
+        optional_param 'Ig::Server::Attribute_restrict', :restrict
         return_type 'Hash[Ig::Domain_Name, Ig::Server::Attribute_value]'
     end
 
-    def execute_for_single(filters, restrict)
+    def execute_for_single(filters, restrict='hostname')
         Ig::Server::Query.new(filters, ['hostname', restrict], []).get_results().reduce({}) { |prev, cur|
             prev[cur['hostname']] = cur[restrict]
         }
