@@ -38,7 +38,7 @@ module Ig
                 end
             end
 
-            def do_query()
+            def get_results()
                 application_id = Digest::SHA1.hexdigest(@authtoken)
                 timestamp = Time.now.getutc.to_i.to_s
                 
