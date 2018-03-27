@@ -38,4 +38,24 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
 
         execute(filters, [restrict])[attribute]
     end
+
+    dispatch :execute_hostname do
+        param 'Ig::Server::Hostname', :hostname
+        param 'Array[Ig::Server::Attribute_restrict]', :restrict
+        return_type 'Hash[Ig::Server::Attribute_id, Ig::Server::Attribute_value]'
+    end
+
+    def execute_hostname(hostname, restrict)
+        execute({'hostname' => hostname}, restrict)
+    end
+
+    dispatch :execute_single_hostname do
+        param 'Ig::Server::Hostname', :hostname
+        optional_param 'Ig::Server::Attribute_restrict', :restrict
+        return_type 'Ig::Server::Attribute_value'
+    end
+
+    def execute_single_hostname(hostname, restrict='hostname')
+        execute_single({'hostname' => hostname}, restrict)
+    end
 end
