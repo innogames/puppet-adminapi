@@ -34,6 +34,8 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
     end
 
     def execute_single(filters, restrict='hostname')
-        execute(filters, [restrict])[restrict]
+        attribute = restrict.is_a?(Hash) ? restrict.keys[0] : restrict
+
+        execute(filters, [restrict])[attribute]
     end
 end

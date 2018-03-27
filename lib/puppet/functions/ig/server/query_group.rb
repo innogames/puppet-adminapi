@@ -23,7 +23,7 @@ Puppet::Functions.create_function(:'ig::server::query_group') do
         Ig::Server::Query.new(filters, [group_by] + restrict, order_by).get_results().each { |cur|
             key = cur[group_by]
 
-            unless results.key? key
+            unless results.key?(key)
                 results[key] = []
             end
 
@@ -43,10 +43,12 @@ Puppet::Functions.create_function(:'ig::server::query_group') do
     end
 
     def execute_single(filters, group_by, restrict='hostname', order_by=[])
+        attribute = restrict.is_a?(Hash) ? restrict.keys[0] : restrict
+
         results = {}
         execute(filters, group_by, [restrict], order_by).each { |key, val|
             results[key] = val.map { |cur|
-                cur[restrict]
+                cur[attribute]
             }
         }
         results

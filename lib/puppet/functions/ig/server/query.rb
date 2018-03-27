@@ -29,8 +29,10 @@ Puppet::Functions.create_function(:'ig::server::query') do
     end
 
     def execute_single(filters, restrict='hostname', order_by=[])
+        attribute = restrict.is_a?(Hash) ? restrict.keys[0] : restrict
+
         execute(filters, [restrict], order_by).map { |cur|
-            cur[restrict]
+            cur[attribute]
         }
     end
 end

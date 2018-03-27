@@ -31,9 +31,11 @@ Puppet::Functions.create_function(:'ig::server::query_group_hostname') do
     end
 
     def execute_single(filters, restrict)
+        attribute = restrict.is_a?(Hash) ? restrict.keys[0] : restrict
+
         results = {}
         execute(filters, [restrict]).each { |key, val|
-            results[key] = val[restrict]
+            results[key] = val[attribute]
         }
         results
     end
