@@ -10,27 +10,27 @@ require_relative '../../../../ig/server/query'
 
 Puppet::Functions.create_function(:'ig::server::query') do
 
-    dispatch :execute_for_single do
-        param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
-        optional_param 'Ig::Server::Attribute_restrict', :restrict
-        optional_param 'Array[Ig::Server::Attribute_id]', :order_by
-        return_type 'Array[Ig::Server::Attribute_value]'
-    end
-
-    def execute_for_single(filters, restrict='hostname', order_by=[])
-        Ig::Server::Query.new(filters, [restrict], order_by).get_results().map { |cur|
-            cur[restrict]
-        }
-    end
-
-    dispatch :execute_for_multi do
+    dispatch :execute do
         param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
         param 'Array[Ig::Server::Attribute_restrict]', :restrict
         optional_param 'Array[Ig::Server::Attribute_id]', :order_by
         return_type 'Array[Hash[Ig::Server::Attribute_id, Ig::Server::Attribute_value]]'
     end
 
-    def execute_for_multi(filters, restrict, order_by=[])
+    def execute(filters, restrict, order_by=[])
         Ig::Server::Query.new(filters, restrict, order_by).get_results()
+    end
+
+    dispatch :execute_single do
+        param 'Hash[Ig::Server::Attribute_id, Ig::Server::Query_filter]', :filters
+        optional_param 'Ig::Server::Attribute_restrict', :restrict
+        optional_param 'Array[Ig::Server::Attribute_id]', :order_by
+        return_type 'Array[Ig::Server::Attribute_value]'
+    end
+
+    def execute_single(filters, restrict='hostname', order_by=[])
+        execute(filters, [restrict], order_by).map { |cur|
+            cur[restrict]
+        }
     end
 end
