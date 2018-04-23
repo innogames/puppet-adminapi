@@ -1,7 +1,7 @@
 #
 # Wrapper around the Serveradmin set function
 #
-# Copyright (c) 2017, InnoGames GmbH
+# Copyright (c) 2017 InnoGames GmbH
 #
 function ig::server::multiadd (
     Ig::Server::Attribute_id                     $attribute_id,

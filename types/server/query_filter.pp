@@ -3,7 +3,7 @@
 #
 # The filters are represented as single item hashes.
 #
-# Copyright (c) 2017, InnoGames GmbH
+# Copyright (c) 2017 InnoGames GmbH
 #
 type Ig::Server::Query_filter = Variant[
     # The list is ordered relatively from simple to complicated.

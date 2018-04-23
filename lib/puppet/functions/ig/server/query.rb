@@ -1,7 +1,7 @@
 #
 # Serveradmin query function
 #
-# Copyright (c) 2018, InnoGames GmbH
+# Copyright (c) 2018 InnoGames GmbH
 #
 
 require 'puppet/util/errors'

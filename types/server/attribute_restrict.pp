@@ -1,7 +1,7 @@
 #
 # Serveradmin attribute restriction
 #
-# Copyright (c) 2017, InnoGames GmbH
+# Copyright (c) 2017 InnoGames GmbH
 #
 type Ig::Server::Attribute_restrict = Variant[
     Ig::Server::Attribute_id,

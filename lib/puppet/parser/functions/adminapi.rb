@@ -1,7 +1,7 @@
 #
 # Call adminapi executable
 #
-# Copyright (c) 2018, InnoGames GmbH
+# Copyright (c) 2018 InnoGames GmbH
 #
 
 module Puppet::Parser::Functions

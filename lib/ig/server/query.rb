@@ -1,7 +1,7 @@
 #
 # Functions required for querying Serveradmin
 #
-# Copyright (c) 2017, InnoGames GmbH
+# Copyright (c) 2017 InnoGames GmbH
 #
 
 require 'net/http'

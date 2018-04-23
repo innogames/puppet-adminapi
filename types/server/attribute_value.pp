@@ -1,7 +1,7 @@
 #
 # Serveradmin attribute value
 #
-# Copyright (c) 2017, InnoGames GmbH
+# Copyright (c) 2017 InnoGames GmbH
 #
 type Ig::Server::Attribute_value = Variant[
     Undef,
