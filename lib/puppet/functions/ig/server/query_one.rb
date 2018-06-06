@@ -6,7 +6,7 @@
 
 require 'puppet/util/errors'
 
-require_relative '../../../../ig/server/query'
+require_relative '../../../../ig/serveradmin'
 
 Puppet::Functions.create_function(:'ig::server::query_one') do
 
@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:'ig::server::query_one') do
     end
 
     def execute(filters, restrict)
-        results = Ig::Server::Query.new(filters, restrict, []).get_results()
+        results = Ig::Serveradmin.query(filters, restrict, [])
         if results.length == 0
             fail('Query returned no objects from Serveradmin!')
         elsif results.length > 1

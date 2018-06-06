@@ -6,7 +6,7 @@
 
 require 'puppet/util/errors'
 
-require_relative '../../../../ig/server/query'
+require_relative '../../../../ig/serveradmin'
 
 Puppet::Functions.create_function(:'ig::server::query_group') do
 
@@ -20,7 +20,7 @@ Puppet::Functions.create_function(:'ig::server::query_group') do
 
     def execute(filters, group_by, restrict, order_by=[])
         results = {}
-        Ig::Server::Query.new(filters, [group_by] + restrict, order_by).get_results().each { |cur|
+        Ig::Serveradmin.query(filters, [group_by] + restrict, order_by).each { |cur|
             key = cur[group_by]
 
             unless results.key?(key)

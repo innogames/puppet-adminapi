@@ -6,7 +6,7 @@
 
 require 'puppet/util/errors'
 
-require_relative '../../../../ig/server/query'
+require_relative '../../../../ig/serveradmin'
 
 Puppet::Functions.create_function(:'ig::server::query_group_hostname') do
 
@@ -17,7 +17,7 @@ Puppet::Functions.create_function(:'ig::server::query_group_hostname') do
     end
 
     def execute(filters, restrict)
-        Ig::Server::Query.new(filters, ['hostname'] + restrict, []).get_results().reduce({}) { |prev, cur|
+        Ig::Serveradmin.query(filters, ['hostname'] + restrict, []).reduce({}) { |prev, cur|
             prev.update(cur['hostname'] => cur.reject { |k|
                 k == 'hostname'
             })

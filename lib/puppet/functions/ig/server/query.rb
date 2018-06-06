@@ -6,7 +6,7 @@
 
 require 'puppet/util/errors'
 
-require_relative '../../../../ig/server/query'
+require_relative '../../../../ig/serveradmin'
 
 Puppet::Functions.create_function(:'ig::server::query') do
 
@@ -18,7 +18,7 @@ Puppet::Functions.create_function(:'ig::server::query') do
     end
 
     def execute(filters, restrict, order_by=[])
-        Ig::Server::Query.new(filters, restrict, order_by).get_results()
+        Ig::Serveradmin.query(filters, restrict, order_by)
     end
 
     dispatch :execute_single do
