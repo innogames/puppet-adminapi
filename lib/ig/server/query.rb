@@ -20,7 +20,6 @@ module Ig
                 @filters = filters
                 @restrict = restrict
                 @order_by = order_by
-                load_authtoken()
             end
 
             def load_authtoken()
@@ -28,18 +27,18 @@ module Ig
                 while (line = fh.gets)
                     line.rstrip!
                     if line.start_with?('auth_token=')
-                        @authtoken = line.split('=')[1]
+                        ENV['SERVERADMIN_TOKEN'] = line.split('=')[1]
                     end
                 end
                 fh.close
 
-                if @authtoken.empty?
+                if ENV['SERVERADMIN_TOKEN'].empty?
                     fail('Could not load adminapi auth token!')
                 end
             end
 
             def get_results()
-                application_id = Digest::SHA1.hexdigest(@authtoken)
+                application_id = Digest::SHA1.hexdigest(ENV['SERVERADMIN_TOKEN'])
                 timestamp = Time.now.getutc.to_i.to_s
                 
                 query_json = JSON.generate({
@@ -50,7 +49,7 @@ module Ig
 
                 security_token = OpenSSL::HMAC.hexdigest(
                     OpenSSL::Digest.new('sha1'),
-                    @authtoken,
+                    ENV['SERVERADMIN_TOKEN'],
                     timestamp + ':' + query_json,
                 )
 
