@@ -20,7 +20,6 @@ module Ig
                 @filters = filters
                 @restrict = restrict
                 @order_by = order_by
-                @serveradmin_url = ENV['SERVERADMIN_BASE_URL'] || 'https://serveradmin.innogames.de/api'
                 load_authtoken()
             end
 
@@ -55,7 +54,7 @@ module Ig
                     timestamp + ':' + query_json,
                 )
 
-                uri = URI(@serveradmin_url + '/dataset/query')
+                uri = URI(ENV['SERVERADMIN_BASE_URL'] + '/dataset/query')
                 req = Net::HTTP::Get.new(uri.request_uri)
 
                 req['Content-Encoding'] = 'application/x-json'
