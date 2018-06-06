@@ -46,13 +46,14 @@ module Ig::Serveradmin
             http.request(req)
         end
 
-        res_json = JSON.parse(res.body)
-        if res_json['status'] && res_json['status'] == 'success' && res_json['result']
-            res_json['result']
-        elsif res_json['message']
-            fail('Serveradmin error: "' + res_json['message'] +'"')
-        else
-            fail('Could not parse answer from Serveradmin!' + res_json.to_s)
+        if ['2', '3'].include?(res.code[0])
+            res_json = JSON.parse(res.body)
+
+            if res_json['status'] && res_json['status'] == 'success' && res_json['result']
+                return res_json['result']
+            end
         end
+
+        fail('Serveradmin error "' + res.body + '" with HTTP code ' + res.code + ' for ' + payload_json)
     end
 end
