@@ -35,13 +35,14 @@ module Ig
                 http.request(req)
             end
 
-            if ['2', '3'].include?(res.code[0])
-                res_json = JSON.parse(res.body)
+            raise(Puppet::ParseError, "Serveradmin retuned " + res.code) unless res.code[0] == '2'
 
-                if res_json['status'] && res_json['status'] == 'success'
-                    return res_json['result']
-                end
-            end
+            res_json = JSON.parse(res.body)
+
+            raise(Puppet::ParseError, "Serveradmin retuned no status") unless res_json['status']
+            raise(Puppet::ParseError, "Serveradmin retuned status " + res_json['status']) unless res_json['status'] == 'success'
+
+            return res_json['result']
         end
 
         def self.query(filters, restrict, order_by)
