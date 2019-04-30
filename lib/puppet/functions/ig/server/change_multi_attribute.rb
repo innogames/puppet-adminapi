@@ -19,6 +19,10 @@ Puppet::Functions.create_function(:'ig::server::change_multi_attribute') do
     end
 
     def execute(object_id, attribute, additions, removals)
+        if additions.none? and removals.none?
+            return nil
+        end
+
         Ig::Serveradmin.commit([], [{
             'object_id' => object_id,
             attribute   => {
@@ -27,7 +31,5 @@ Puppet::Functions.create_function(:'ig::server::change_multi_attribute') do
                 'remove' => removals,
             },
         }], [])
-        
-        nil
     end
 end
