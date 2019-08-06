@@ -1,12 +1,12 @@
 #
 # Serveradmin hiera backend
 #
-# Copyright (c) 2018 InnoGames GmbH
+# Copyright (c) 2019 InnoGames GmbH
 #
 
-require_relative '../../../../ig/serveradmin'
+require_relative './adminapi'
 
-Puppet::Functions.create_function(:'ig::server::hiera_backend') do
+Puppet::Functions.create_function(:'adminapi::hiera_backend') do
     dispatch :execute do
         param 'Struct[{puppet_class=>String[1], restrict=>Array}]', :options
         param 'Puppet::LookupContext', :context
@@ -19,7 +19,7 @@ Puppet::Functions.create_function(:'ig::server::hiera_backend') do
 
     def execute(options, context)
         results = {}
-        Ig::Serveradmin.query({'hostname' => closure_scope['trusted']['certname']}, options['restrict'], [])[0].each { |key, value|
+        Adminapi.query({'hostname' => closure_scope['trusted']['certname']}, options['restrict'], [])[0].each { |key, value|
             results[options['puppet_class'] + '::' + key] = value
         }
         results

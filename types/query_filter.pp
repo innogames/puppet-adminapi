@@ -3,9 +3,9 @@
 #
 # The filters are represented as single item hashes.
 #
-# Copyright (c) 2017 InnoGames GmbH
+# Copyright (c) 2019 InnoGames GmbH
 #
-type Ig::Server::Query_filter = Variant[
+type Adminapi::Query_filter = Variant[
     # The list is ordered relatively from simple to complicated.
     Boolean,
     Numeric,
@@ -14,6 +14,6 @@ type Ig::Server::Query_filter = Variant[
     Hash[Enum['GreaterThan', 'GreaterThanOrEquals', 'LessThan', 'LessThanOrEquals'], Variant[Numeric, Pattern[/\A[^\(\)\'"]+\Z/]], 1, 1],
     Hash[Enum['Regexp'], String[1], 1, 1],
     Hash[Enum['Overlaps', 'ContainedBy', 'ContainedOnlyBy', 'Contains', 'StartsWith'], Pattern[/\A[^\(\)\'"]+\Z/], 1, 1],
-    Hash[Enum['Any', 'All'], Array[Ig::Server::Query_filter], 1, 1],
-    Hash[Enum['Not'], Ig::Server::Query_filter, 1, 1],
+    Hash[Enum['Any', 'All'], Array[Adminapi::Query_filter], 1, 1],
+    Hash[Enum['Not'], Adminapi::Query_filter, 1, 1],
 ]

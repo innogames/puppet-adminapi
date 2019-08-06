@@ -1,20 +1,20 @@
 #
 # Serveradmin multiadd function
 #
-# Copyright (c) 2018 InnoGames GmbH
+# Copyright (c) 2019 InnoGames GmbH
 #
 
 require 'puppet/util/errors'
 
-require_relative '../../../../ig/serveradmin'
+require_relative './adminapi'
 
-Puppet::Functions.create_function(:'ig::server::change_multi_attribute') do
+Puppet::Functions.create_function(:'adminapi::change_multi_attribute') do
 
     dispatch :execute do
         param 'Integer', :object_id
-        param 'Ig::Server::Attribute_id', :attribute
-        param 'Array[Ig::Server::Attribute_value]', :additions
-        param 'Array[Ig::Server::Attribute_value]', :removals
+        param 'Adminapi::Attribute_id', :attribute
+        param 'Array[Adminapi::Attribute_value]', :additions
+        param 'Array[Adminapi::Attribute_value]', :removals
         return_type 'Undef'
     end
 
@@ -23,7 +23,7 @@ Puppet::Functions.create_function(:'ig::server::change_multi_attribute') do
             return nil
         end
 
-        Ig::Serveradmin.commit([], [{
+        Adminapi.commit([], [{
             'object_id' => object_id,
             attribute   => {
                 'action' => 'multi',
