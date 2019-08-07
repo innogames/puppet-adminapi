@@ -32,4 +32,4 @@ License
 -------
 
 The project is released under the MIT License.  The MIT License is registered
-with and approved by the [Open Source Initiative](https://opensource.org/licenses/MIT>`).
+with and approved by the [Open Source Initiative](https://opensource.org/licenses/MIT).
