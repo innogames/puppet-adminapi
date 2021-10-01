@@ -44,7 +44,7 @@ module Adminapi
 
                     http.request(req)
                 end
-            rescue Timeout::TimeoutError
+            rescue Timeout::Error
                 warning('Request to Serveradmin timed out on opening connection or while connected, retrying!')
                 sleep 5
                 max_retries -= 1
