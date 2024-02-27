@@ -3,4 +3,4 @@
 #
 # Copyright (c) 2019 InnoGames GmbH
 #
-type Adminapi::Hostname = Pattern[/\A[a-z][a-z0-9_\-\.]+\Z/]
+type Adminapi::Hostname = Pattern[/\A(\*\.)?([a-z0-9]+(\.|-+))*[a-z0-9]+\Z/]
