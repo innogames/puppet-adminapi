@@ -54,12 +54,12 @@ module Adminapi
         end
 
         raise(Puppet::ParseError, "Can't establish connection to Serveradmin") unless max_retries > -1
-        raise(Puppet::ParseError, "Serveradmin returned " + res.code) unless res.code[0] == '2'
+        raise(Puppet::ParseError, "Serveradmin returned " + res.code + " > " + res.body ) unless res.code[0] == '2'
 
         res_json = JSON.parse(res.body)
 
         raise(Puppet::ParseError, "Serveradmin returned no status") unless res_json['status']
-        raise(Puppet::ParseError, "Serveradmin returned status " + res_json['status']) unless res_json['status'] == 'success'
+        raise(Puppet::ParseError, "Serveradmin returned status " + res_json['status'] + " > " + res.body) unless res_json['status'] == 'success'
 
         return res_json['result']
     end
