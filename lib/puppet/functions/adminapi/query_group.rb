@@ -52,17 +52,26 @@ Puppet::Functions.create_function(:'adminapi::query_group') do
         param 'Adminapi::Attribute_id', :group_by
         optional_param 'Adminapi::Attribute_restrict', :restrict
         optional_param 'Array[Adminapi::Attribute_id]', :order_by
+        optional_param 'Boolean', :split_list_elements
         return_type 'Hash[Adminapi::Attribute_value, Array[Adminapi::Attribute_value, 1]]'
     end
 
-    def execute_single(filters, group_by, restrict='hostname', order_by=[])
+    def execute_single(filters, group_by, restrict='hostname', order_by=[], split_list_elements=false)
         attribute = restrict.is_a?(Hash) ? restrict.keys[0] : restrict
 
         results = {}
-        execute(filters, group_by, [restrict], order_by).each { |key, val|
-            results[key] = val.map { |cur|
-                cur[attribute]
-            }
+        execute(filters, group_by, [restrict], order_by, split_list_elements).each { |key, val|
+            if split_list_elements and not key.nil? and key.is_a?(Array)
+                key.each { |k|
+                    results[k] = val.map {
+                        |cur| cur[attribute]
+                    }
+                }
+            else
+                results[key] = val.map {
+                    |cur| cur[attribute]
+                }
+            end
         }
         results
     end
