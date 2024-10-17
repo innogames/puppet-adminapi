@@ -15,21 +15,34 @@ Puppet::Functions.create_function(:'adminapi::query_group') do
         param 'Adminapi::Attribute_id', :group_by
         param 'Array[Adminapi::Attribute_restrict]', :restrict
         optional_param 'Array[Adminapi::Attribute_id]', :order_by
+        optional_param 'Boolean', :split_list_elements
         return_type 'Hash[Adminapi::Attribute_value, Array[Hash[Adminapi::Attribute_id, Adminapi::Attribute_value], 1]]'
     end
 
-    def execute(filters, group_by, restrict, order_by=[])
+    def execute(filters, group_by, restrict, order_by=[], split_list_elements=false)
         results = {}
         Adminapi.query(filters, [group_by] + restrict, order_by).each { |cur|
             key = cur[group_by]
 
-            unless results.key?(key)
-                results[key] = []
+            # check if it is nil or not
+            if split_list_elements and not key.nil? and key.is_a?(Array)
+                # Key is an array, so we need to split it
+                key.each { |k|
+                    unless results.key?(k)
+                        results[k] = []
+                    end
+                    results[k].push(cur.reject { |k|
+                        k == group_by
+                    })
+                }
+            else
+                unless results.key?(key)
+                    results[key] = []
+                end
+                results[key].push(cur.reject { |k|
+                    k == group_by
+                })
             end
-
-            results[key].push(cur.reject { |k|
-                k == group_by
-            })
         }
         results
     end
