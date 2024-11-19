@@ -53,12 +53,14 @@ Puppet::Functions.create_function(:'adminapi::create_objects') do
                         unless (current_object[0][attribute_id] & attr_to_change ) == current_object[0][attribute_id]
                             to_remove = current_object[0][attribute_id] - attr_to_change
                         end
-                        # Now construct the change hash
-                        change[attribute_id] = {
-                            'action' => 'multi',
-                            'add' => to_add,
-                            'remove' => to_remove
-                        }
+                        # Now construct the change hash if we have any changes
+                        if to_add.any? || to_remove.any?
+                          change[attribute_id] = {
+                              'action' => 'multi',
+                              'add' => to_add,
+                              'remove' => to_remove
+                          }
+                        end
                     else
                         # This is a single attribute
                         if current_object[0][attribute_id] != attr_to_change
@@ -70,8 +72,8 @@ Puppet::Functions.create_function(:'adminapi::create_objects') do
                         end
                     end
                 end
-                if change.values.length > 0
-                    # We have changes, add them to the list
+                # If we have anything other than the object_id, we can commit the change
+                if change.values.length > 1
                     all_changes.push(change)
                 end
             end
