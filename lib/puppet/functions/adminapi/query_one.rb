@@ -21,7 +21,7 @@ Puppet::Functions.create_function(:'adminapi::query_one') do
         if results.length == 0
             fail("Query returned no objects from Serveradmin! Filters: #{filters.inspect}")
         elsif results.length > 1
-            fail("Query returned multiple objects from Serveradmin! Filters: #{filters.inspect}")
+            fail("Query returned multiple objects from Serveradmin! Filters: #{filters.inspect}, we got #{results.length} objects.")
         else
             results[0]
         end
