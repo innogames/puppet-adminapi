@@ -15,10 +15,11 @@ Puppet::Functions.create_function(:'adminapi::change_multi_attribute') do
         param 'Adminapi::Attribute_id', :attribute
         param 'Array[Adminapi::Attribute_value]', :additions
         param 'Array[Adminapi::Attribute_value]', :removals
+        optional_param 'Boolean', :no_fail
         return_type 'Undef'
     end
 
-    def execute(object_id, attribute, additions, removals)
+    def execute(object_id, attribute, additions, removals, no_fail = false)
         if additions.none? and removals.none?
             return nil
         end
@@ -30,6 +31,6 @@ Puppet::Functions.create_function(:'adminapi::change_multi_attribute') do
                 'add'    => additions,
                 'remove' => removals,
             },
-        }], [])
+        }], [], no_fail)
     end
 end
