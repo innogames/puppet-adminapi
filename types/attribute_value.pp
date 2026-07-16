@@ -7,9 +7,9 @@ type Adminapi::Attribute_value = Variant[
     Undef,
     Boolean,
     Numeric,
-    Pattern[/\A[^\(\)\'"]+\Z/],
+    Pattern[/\A[^\'"]+\Z/],
     Array[Numeric],
-    Array[Pattern[/\A[^\(\)\'"]+\Z/]],
+    Array[Pattern[/\A[^\'"]+\Z/]],
     Hash[Adminapi::Attribute_id, Adminapi::Attribute_value],
     Array[Hash[Adminapi::Attribute_id, Adminapi::Attribute_value]],
 ]
